@@ -125,14 +125,17 @@ void add_wavelet_tree2D(py::module &m, const char* name) {
             Args:
                 file (str): The name of the file to load the tree from.
         )pbdoc")
-        .def("construct0", [](T& wt, const std::string& file) { return
-	      sdsl::construct(wt, file, 0); }, R"pbdoc(
-            Construct the wavelet tree from a serialized input file.
-        )pbdoc")
-        .def("construct1", [](T& wt, const std::string& file) { return
-	    sdsl::construct(wt, file, 1); }, R"pbdoc(
-            Construct the wavelet tree from a file with 1-byte symbols.
-        )pbdoc");
+        .def("construct", [](T& wt, const std::string& file, int type) {
+	         if (type == 0 || type == 1) {
+	             sdsl::construct(wt, file, type);
+	         } 
+	         else{ 
+	         	throw std::invalid_argument("Invalid type: must be 0 or 1");
+	         }
+	     }, R"pbdoc(
+	         Construct the wavelet tree from a serialized input file (type = 0)
+	         or from a file with 1-byte symbols (type = 1).
+	     )pbdoc");
 }
 
 

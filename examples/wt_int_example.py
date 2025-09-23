@@ -2,7 +2,7 @@ import sdsl4py
 
 # Create a wavelet tree wt_int from this Python file
 wt = sdsl4py.WaveletTreeInt()
-wt.construct1("wt_int_example.py")
+wt.construct("wt_int_example.py", 1)
 
 # Get the size in bytes
 print("Size in bytes:", wt.size_in_bytes())
